@@ -1,5 +1,5 @@
 /magento22.loc
 /magento23.loc
-instances
+/instances/magento2ce
 .docker-sync/
 .idea

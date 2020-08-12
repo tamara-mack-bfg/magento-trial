@@ -184,6 +184,30 @@ _Windows with WSL_
 bash mutagen_session.sh list
 ```
 
+## Setup New Connection to the Database (via the client such as Sequel Pro, MySql Workbench, etc)
+After the docker images are successfully built and running you can setup a new connection to the DB. Below we will describe steps for MySql Workbench SQL client (You able to use any SQL client you wish).
+
+_MySql Workbench_
+```
+Open MySql Workbench client and click to "MySql Connections +" button and you will see the "Setup New Connetcion" window 
+
+- Fill "Connection Name" field with any name you want - Example: dockerDB 
+
+- "Connection Method" is "Standard (TCP/IP)" 
+
+- Hostname is 127.0.0.1 
+
+- Port is 4306
+
+- username is magento
+
+- password is magento
+
+- Default Schema is m2
+
+- Click Ok to save your new connection
+```
+
 ## Other important information
 After the docker images are successfully built and running you can run the following command to go inside of the container 
 

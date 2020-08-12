@@ -59,6 +59,16 @@ RUN /etc/init.d/mysql start && \
         "use mysql;update user set plugin='' where User='root'; \
         flush privileges;create database m2\q"
 
+RUN /etc/init.d/mysql start && \
+    mysql -u root -e \
+    "create user 'magento'@'localhost' identified by 'magento';\
+             create user 'magento'@'%' identified by 'magento';\
+             grant all on *.* to 'magento'@'localhost';\
+             grant all on *.* to 'magento'@'%';\q"
+
+COPY ./mysql/my.cnf /etc/mysql/my.cnf
+RUN /etc/init.d/mysql restart
+
 # Composer
 RUN curl -sS https://getcomposer.org/installer | php && \
     mv composer.phar /usr/local/bin/composer

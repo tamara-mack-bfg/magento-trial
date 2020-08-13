@@ -28,8 +28,9 @@ utility that provides real-time file synchronization, at the moment available fo
 ## Step-by-step installation guide
 **Start Docker Desktop.**
 
-**[Clone the following from GIT](https://github.com/mike61988/magento2-dk/) to your working directory. Then, create a folder 
-called _instances_ within that directory.**
+**[Clone this repo](https://github.com/mike61988/magento2-dk/) to your working directory.**
+
+**Create a folder called _instances_ within that directory.**
 
 _Example:_
 
@@ -54,7 +55,7 @@ _Example:_
 
 _Unix_
 ```
-sudo nano /etc/hosts
+vi nano /etc/hosts
 127.0.0.1       magento2u.loc
 ```
 

@@ -26,7 +26,8 @@ utility that provides real-time file synchronization, at the moment available fo
 - (Optional) [Visual Studio Code](https://code.visualstudio.com/download) or [PhpStorm](https://www.jetbrains.com/phpstorm/download/) or others
 
 ## Step-by-step installation guide
-**Start Docker Desktop**
+**Start Docker Desktop.**
+
 **[Clone the following from GIT](https://github.com/mike61988/magento2-dk/) to the your working directory. Then, create a folder called _instances_ within that directory.**
 
 _Example:_

@@ -12,7 +12,7 @@ The goal is to have a local environment with:
 
 We are providing custom docker images so once loaded, you will be ready to start with the developer courses and trainings.
 
-At the end of this guide you will find the instructions for installing the environment with the custom docker images. 
+At the end of this guide you will find the instructions for installing the environment with the custom docker images.
 You don't need to follow those instructions, they are provided for your reference.
 
 ## Requirements
@@ -21,13 +21,16 @@ You don't need to follow those instructions, they are provided for your referenc
 - [Docker Desktop](https://www.docker.com/products/docker-desktop)
 - [GIT](https://git-scm.com/downloads)
 - Your Magento repository keys (see https://devdocs.magento.com/guides/v2.3/install-gde/prereq/connect-auth.html)
-- (Optional) [Mutagen utility installed](https://mutagen.io/documentation/introduction/installation). Mutagen is a 
+- (Optional) [Mutagen utility installed](https://mutagen.io/documentation/introduction/installation). Mutagen is a
 utility that provides real-time file synchronization, at the moment available for MacOS and only for Windows 10 with WSL (with subsystem for Linux).
 - (Optional) [Visual Studio Code](https://code.visualstudio.com/download) or [PhpStorm](https://www.jetbrains.com/phpstorm/download/) or others
 
 ## Step-by-step installation guide
-**Start Docker Desktop**
-**[Clone the following from GIT](https://github.com/mike61988/magento2-dk/) to the your working directory. Then, create a folder called _instances_ within that directory.**
+**Start Docker Desktop.**
+
+**[Clone this repo](https://github.com/mike61988/magento2-dk/) to your working directory.**
+
+**Create a folder called _instances_ within that directory.**
 
 _Example:_
 
@@ -52,14 +55,14 @@ _Example:_
 
 _Unix_
 ```
-sudo nano /etc/hosts
+sudo vi /etc/hosts
 127.0.0.1       magento2u.loc
 ```
 
 _Windows_
 ```
 Windows host file location is C:\Windows\System32\drivers\etc\hosts
-Open file as administrator (or use visual studio code editor), add the following line: 
+Open file as administrator (or use visual studio code editor), add the following line:
 127.0.0.1       magento2u.loc
 then save the file
 ```
@@ -105,7 +108,10 @@ You can now access the site:
 * Admin: http://magento2u.loc:8080/admin (username: admin, password: mageU123)
 
 ## Using Mutagen
-If you are on Mac/Unix or Windows with WSL, you can use Mutagen. Execute the following script in the root of your project for instructions on the most common commands.
+If you are on Mac/Unix or Windows with WSL, you can use Mutagen. Click [here](https://mutagen.io/documentation/introduction/installation) for installation instructions.
+
+
+Execute the following script in the root of your project for instructions on the most common commands.
 
 You can also view the Mutagen [documentation](https://mutagen.io/documentation/introduction/getting-started).
 
@@ -189,13 +195,13 @@ After the docker images are successfully built and running you can setup a new c
 
 _MySql Workbench_
 ```
-Open MySql Workbench client and click to "MySql Connections +" button and you will see the "Setup New Connetcion" window 
+Open MySql Workbench client and click to "MySql Connections +" button and you will see the "Setup New Connetcion" window
 
-- Fill "Connection Name" field with any name you want - Example: dockerDB 
+- Fill "Connection Name" field with any name you want - Example: dockerDB
 
-- "Connection Method" is "Standard (TCP/IP)" 
+- "Connection Method" is "Standard (TCP/IP)"
 
-- Hostname is 127.0.0.1 
+- Hostname is 127.0.0.1
 
 - Port is 4306
 
@@ -209,7 +215,7 @@ Open MySql Workbench client and click to "MySql Connections +" button and you wi
 ```
 
 ## Other important information
-After the docker images are successfully built and running you can run the following command to go inside of the container 
+After the docker images are successfully built and running you can run the following command to go inside of the container
 
 _Mac/Unix_
 ```
@@ -277,12 +283,12 @@ mike/magento_config   latest              d26f7cd51da1        12 days ago       
 mike/debian_config    latest              bd3e96686fa0        12 days ago         923MB
 
 debian                latest              67e34c1c9477        3 weeks ago         114MB
-``` 
+```
 
 Now you need copy IMAGE ID and use following command:
 ```
 docker rmi -f IMAGE ID
-``` 
+```
 Example
 ```
 docker rmi -f 167961367de5

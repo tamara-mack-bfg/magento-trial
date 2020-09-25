@@ -142,7 +142,7 @@ _Windows with WSL_
 bash mutagen_session.sh create C:\PATH\TO\YOUR\magento\magento2-dev-dk\instances\
 ```
 
-After a mutagen is staged and all files are synchronized, the Magento code will appear in `instances` folder of your working directory.
+After mutagen is started and all files are synchronized, the Magento code will appear in `instances` folder of your working directory.
 
 ### To pause a mutagen session, use the `pause` command.
 

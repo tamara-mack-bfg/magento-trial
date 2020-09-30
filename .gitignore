@@ -4,3 +4,4 @@
 /instances/magento2ce
 .docker-sync/
 .idea
+.DS_Store

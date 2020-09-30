@@ -98,6 +98,7 @@ _Windows_
 winpty docker exec -it m23 //bin/sh
 ```
 
+**Getting Access to the Magento instance**
 Once inside the container, run the following command to move the Magento directory to a shared folder and exit:
 ```
 mv /var/www/html/magento2ce /var/www/html/shared/ && exit
@@ -141,7 +142,7 @@ _Windows with WSL_
 bash mutagen_session.sh create C:\PATH\TO\YOUR\magento\magento2-dev-dk\instances\
 ```
 
-After a Mutagen is staged and all files are synchronized, the Magento code will appear in `instances` folder of your working directory.
+After mutagen is started and all files are synchronized, the Magento code will appear in `instances` folder of your working directory.
 
 ### To pause a mutagen session, use the `pause` command.
 
@@ -191,7 +192,9 @@ bash mutagen_session.sh list
 ```
 
 ## Setup New Connection to the Database (via the client such as Sequel Pro, MySql Workbench, etc)
-After the docker images are successfully built and running you can setup a new connection to the DB. Below we will describe steps for MySql Workbench SQL client (You able to use any SQL client you wish).
+
+After the docker images are successfully built and running you can setup a new connection to the DB. Below we will describe steps for
+MySql Workbench SQL client (You are able to use any SQL client you wish).
 
 _MySql Workbench_
 ```
@@ -215,7 +218,7 @@ Open MySql Workbench client and click to "MySql Connections +" button and you wi
 ```
 
 ## Other important information
-After the docker images are successfully built and running you can run the following command to go inside of the container
+After the docker images are successfully built and running you can run the following command to go inside of the container:
 
 _Mac/Unix_
 ```
@@ -272,7 +275,12 @@ Open a terminal in your working directory and run the following command:
 docker-compose down
 ```
 
-Run the following command you should see something like table below
+Run the following command you should see something like table below:
+
+```
+docker image ls
+```
+
 ```
 REPOSITORY            TAG                 IMAGE ID            CREATED             SIZE
 

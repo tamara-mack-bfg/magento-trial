@@ -20,7 +20,7 @@ RUN /etc/init.d/mysql start && \
 	--admin-firstname=admin --admin-lastname=admin --backend-frontname=admin \
 	--admin-email=chandlerbing7@gmail.com --admin-user=admin \
 	--admin-password=mageU123 --db-name=m2 --db-host=localhost --db-user=root \
-	--use-rewrites=1 --admin-use-security-key=0 ; \
+	--use-rewrites=1; \
 	php bin/magento index:reindex ; \
 	php bin/magento c:c ; \
 	apt install -y nodejs && \

@@ -1,7 +1,7 @@
 FROM mike/debian_config
 MAINTAINER chandlerbing7@gmail.com
 
-RUN composer create-project --repository=https://repo.magento.com/ magento/project-community-edition=2.3.5-p2 /var/www/html/magento2ce/
+RUN composer create-project --repository=https://repo.magento.com/ magento/project-community-edition=2.4.1 /var/www/html/magento2ce/
 #RUN composer create-project --repository=https://repo.magento.com/ magento/project-enterprise-edition /var/www/html/magento2ce/
 RUN mkdir /var/www/html/magento2ce/var/composer_home/
 RUN touch /var/www/html/magento2ce/var/composer_home/auth.json
@@ -9,6 +9,7 @@ RUN cp /root/.composer/auth.json /var/www/html/magento2ce/var/composer_home/auth
 
 # Magento2 and Sample Data
 RUN cd /var/www/html/magento2ce/ && \
+    composer dump && \
 	composer install && \
 	php bin/magento sampledata:deploy && \
 	bin/magento setup:upgrade ; \

@@ -5,3 +5,4 @@
 .docker-sync/
 .idea
 .DS_Store
+/composer.phar

@@ -77,6 +77,11 @@ volumes:
 
 _For Unix/Mac/Windows with WSL_
 ```
+docker-compose up -d
+```
+
+**_For first time run or after major update use:_**
+```
 docker-compose up -d --build
 ```
 
@@ -273,6 +278,13 @@ That's it, you have your VM for learning purposes for Magento 2.2 and Magento 2.
 Open a terminal in your working directory and run the following command:
 ```
 docker-compose down
+
+```
+
+#### This will kill all local docker container/images/volumes/networks.  
+Be sure this is what you want.  Otherwise kill specific images/containers.
+```
+docker system prune -a
 ```
 
 Run the following command you should see something like table below:

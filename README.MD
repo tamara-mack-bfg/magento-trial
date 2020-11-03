@@ -77,7 +77,7 @@ volumes:
 
 _For Unix/Mac/Windows with WSL_
 ```
-docker-compose up -d
+docker-compose up -d --build
 ```
 
 _Or, for Windows without WSL_

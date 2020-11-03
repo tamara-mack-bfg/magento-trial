@@ -1,7 +1,7 @@
 FROM mike/debian_config
 MAINTAINER chandlerbing7@gmail.com
 
-RUN composer create-project --repository=https://repo.magento.com/ magento/project-community-edition=2.4.1 /var/www/html/magento2ce/
+RUN COMPOSER_MEMORY_LIMIT=-1 composer create-project -v --repository=https://repo.magento.com/ magento/project-community-edition=2.4.1 /var/www/html/magento2ce/
 #RUN composer create-project --repository=https://repo.magento.com/ magento/project-enterprise-edition /var/www/html/magento2ce/
 RUN mkdir /var/www/html/magento2ce/var/composer_home/
 RUN touch /var/www/html/magento2ce/var/composer_home/auth.json
@@ -9,8 +9,7 @@ RUN cp /root/.composer/auth.json /var/www/html/magento2ce/var/composer_home/auth
 
 # Magento2 and Sample Data
 RUN cd /var/www/html/magento2ce/ && \
-    composer dump && \
-	composer install && \
+	composer install -v && \
 	php bin/magento sampledata:deploy && \
 	bin/magento setup:upgrade ; \
 	mv Gruntfile.js.sample Gruntfile.js && \
@@ -27,6 +26,8 @@ RUN /etc/init.d/mysql start && \
 	apt install -y nodejs && \
 	npm install -g grunt-cli && \
 	npm install && \
+	npm fund && \
+	npm audit fix && \
 	grunt exec && \
 	grunt less
 

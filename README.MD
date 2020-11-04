@@ -281,7 +281,7 @@ docker-compose down
 
 ```
 
-#### This will kill all local docker container/images/volumes/networks.  
+**_This will kill all local docker container/images/volumes/networks._** <br>
 Be sure this is what you want.  Otherwise kill specific images/containers.
 ```
 docker system prune -a

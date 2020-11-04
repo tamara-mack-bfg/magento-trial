@@ -1,7 +1,9 @@
 FROM mike/debian_config
 MAINTAINER chandlerbing7@gmail.com
 
-RUN COMPOSER_MEMORY_LIMIT=-1 composer create-project -v --repository=https://repo.magento.com/ magento/project-community-edition=2.4.1 /var/www/html/magento2ce/
+ARG magento_version=2.4.1
+
+RUN COMPOSER_MEMORY_LIMIT=-1 composer create-project -v --repository=https://repo.magento.com/ magento/project-community-edition=$magento_version /var/www/html/magento2ce/
 #RUN composer create-project --repository=https://repo.magento.com/ magento/project-enterprise-edition /var/www/html/magento2ce/
 RUN mkdir /var/www/html/magento2ce/var/composer_home/
 RUN touch /var/www/html/magento2ce/var/composer_home/auth.json
@@ -16,6 +18,7 @@ RUN cd /var/www/html/magento2ce/ && \
 	mv package.json.sample package.json
 RUN /etc/init.d/mysql start && \
 	cd /var/www/html/magento2ce/ &&  \
+	php -v && \
 	php bin/magento setup:install --base-url=http://magento2u.loc:8080 \
 	--admin-firstname=admin --admin-lastname=admin --backend-frontname=admin \
 	--admin-email=chandlerbing7@gmail.com --admin-user=admin \

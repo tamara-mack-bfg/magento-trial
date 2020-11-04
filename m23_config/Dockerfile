@@ -29,9 +29,8 @@ RUN /etc/init.d/mysql start && \
 	apt install -y nodejs && \
 	npm install -g grunt-cli && \
 	npm install && \
-	npm fund && \
 	npm audit fix && \
-	grunt exec && \
+	grunt exec --force && \
 	grunt less
 
 RUN chown -R www-data:www-data /var/www/html/magento2ce/

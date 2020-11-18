@@ -1,9 +1,7 @@
 FROM mike/debian_config
 MAINTAINER chandlerbing7@gmail.com
 
-ARG magento_version=2.4.1
-
-RUN COMPOSER_MEMORY_LIMIT=-1 composer create-project -v --repository=https://repo.magento.com/ magento/project-community-edition=$magento_version /var/www/html/magento2ce/
+RUN composer create-project -v --repository=https://repo.magento.com/ magento/project-community-edition /var/www/html/magento2ce/
 #RUN composer create-project --repository=https://repo.magento.com/ magento/project-enterprise-edition /var/www/html/magento2ce/
 RUN mkdir /var/www/html/magento2ce/var/composer_home/
 RUN touch /var/www/html/magento2ce/var/composer_home/auth.json
@@ -16,28 +14,40 @@ RUN cd /var/www/html/magento2ce/ && \
 	bin/magento setup:upgrade ; \
 	mv Gruntfile.js.sample Gruntfile.js && \
 	mv package.json.sample package.json
-RUN /etc/init.d/mysql start && \
-	cd /var/www/html/magento2ce/ &&  \
-	php -v && \
-	php bin/magento setup:install --base-url=http://magento2u.loc:8080 \
-	--admin-firstname=admin --admin-lastname=admin --backend-frontname=admin \
-	--admin-email=chandlerbing7@gmail.com --admin-user=admin \
-	--admin-password=mageU123 --db-name=m2 --db-host=localhost --db-user=root \
-	--use-rewrites=1; \
-	php bin/magento index:reindex ; \
-	php bin/magento c:c ; \
+
+RUN cd /var/www/html/magento2ce/ &&  \
+	php bin/magento setup:install \
+	--base-url=http://magento2u.loc:8080 \
+	--backend-frontname=admin \
+	--admin-firstname=admin \
+	--admin-lastname=admin \
+	--admin-email=example@gmail.com \
+	--admin-user=admin \
+	--admin-password=mageU123 \
+	--db-name=m2 \
+	--db-host=magento-mysql \
+	--db-user=root \
+	--db-password=password \
+	--elasticsearch-host=elasticsearch \
+    --elasticsearch-port=9200 \
+    --use-rewrites=1 && \
+	php bin/magento indexer:reindex && \
+	php bin/magento cache:flush
+
+RUN cd /var/www/html/magento2ce/ &&  \
 	apt install -y nodejs && \
 	npm install -g grunt-cli && \
 	npm install && \
-	npm audit fix && \
 	grunt exec --force && \
-	grunt less
+	grunt less --force && \
+    php bin/magento deploy:mode:set developer && \
+    composer require --dev n98/magerun2-dist
 
 RUN chown -R www-data:www-data /var/www/html/magento2ce/
 
-RUN apt --purge autoremove -y ; apt clean
+RUN apt --purge autoremove -y ; apt clean && rm -rf /var/lib/apt/list/*
 
-ENTRYPOINT 	/etc/init.d/mysql start && service sendmail restart && \
+ENTRYPOINT 	service mysql restart && service sendmail restart && \
 			service apache2 restart && bash
 
 EXPOSE 80

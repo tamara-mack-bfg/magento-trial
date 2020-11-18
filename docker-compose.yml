@@ -1,11 +1,44 @@
-version: '3'
+version: '3.8'
 
 services:
+  # Defining our MySQL container.
+  # "mysql" will be the network alias for this container.
+  mysql:
+    image: mysql:5.7
+    container_name: magento-mysql
+    networks:
+      - magento-network
+    ports:
+      - "3306:3306"
+    volumes:
+      - magento-mysql-data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_USER: root
+      MYSQL_PASSWORD: password
+      MYSQL_DATABASE: m2
+
+  # Defining our Elasticsearch container
+  # "elasticsearch" will be the network alias for this container.
+  elasticsearch:
+    image: elasticsearch:7.8.1
+    container_name: magento-elasticsearch
+    networks:
+      - magento-network
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    environment:
+      discovery.type: single-node
+
   base:
     build:
       context: ./debian_config/
     image: mike/debian_config
     container_name: base
+    networks:
+      - magento-network
+
   m23:
     build: ./m23_config/
     image: mike/m23_config
@@ -14,11 +47,17 @@ services:
     ports:
       - "8080:80"
       - "4306:3306"
+    networks:
+      - magento-network
     volumes:
 #       - /Path/To/Your/magento/magento2-dev-dk/instances:/var/www/html/shared
-#       - /Users/molochko/Sites/magento/magento2-dev-dk/instances:/var/www/html/shared
+#       - D:\Git\_bfg\magento-trial\instances:/var/www/html/shared
        - src-volume-dk:/var/www/html/shared
     tty: true
     container_name: m23
 volumes:
   src-volume-dk:
+  magento-mysql-data:
+networks:
+  magento-network:
+    driver: bridge

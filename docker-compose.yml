@@ -1,23 +1,6 @@
 version: '3.8'
 
 services:
-  # Defining our MySQL container.
-  # "mysql" will be the network alias for this container.
-  mysql:
-    image: mysql:5.7
-    container_name: magento-mysql
-    networks:
-      - magento-network
-    ports:
-      - "3306:3306"
-    volumes:
-      - magento-mysql-data:/var/lib/mysql
-    environment:
-      MYSQL_ROOT_PASSWORD: password
-      MYSQL_USER: root
-      MYSQL_PASSWORD: password
-      MYSQL_DATABASE: m2
-
   # Defining our Elasticsearch container
   # "elasticsearch" will be the network alias for this container.
   elasticsearch:

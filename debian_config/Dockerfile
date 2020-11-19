@@ -54,7 +54,7 @@ RUN a2enmod rewrite ; \
 	a2enmod mpm_prefork
 
 RUN update-alternatives --set php /usr/bin/$php_version ; \
-	a2dismod php7.1 ; a2enmod $php_version ; service apache2 restart
+	a2dismod php7.0 ; a2enmod $php_version ; service apache2 restart
 
 COPY ./conf/php.ini /etc/php/7.4/apache2/php.ini
 
@@ -65,9 +65,21 @@ RUN echo "xdebug.remote_autostart=on" >> /etc/php/7.4/mods-available/xdebug.ini
 
 # MySQL
 # Install the mysql CLI client.
-RUN apt-get update && apt-get install -y default-mysql-client
+RUN apt update && DEBIAN_FRONTEND=noninteractive apt install -y mariadb-server
+RUN /etc/init.d/mysql start && \
+        mysql -u root -e \
+        "use mysql;update user set plugin='' where User='root'; \
+        flush privileges;create database m2\q"
 
-CMD service mysql start && tail -F /var/log/mysql/error.log
+RUN /etc/init.d/mysql start && \
+    mysql -u root -e \
+    "create user 'magento'@'localhost' identified by 'magento';\
+             create user 'magento'@'%' identified by 'magento';\
+             grant all on *.* to 'magento'@'localhost';\
+             grant all on *.* to 'magento'@'%';\q"
+
+COPY ./mysql/my.cnf /etc/mysql/my.cnf
+RUN /etc/init.d/mysql restart
 
 # Composer
 COPY ./composer/install.sh /root/.composer/composeInit

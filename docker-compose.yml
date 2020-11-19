@@ -1,4 +1,4 @@
-version: '3.8'
+version: '3'
 
 services:
   # Defining our Elasticsearch container
@@ -13,7 +13,6 @@ services:
       - "9300:9300"
     environment:
       discovery.type: single-node
-
   base:
     build:
       context: ./debian_config/
@@ -21,7 +20,6 @@ services:
     container_name: base
     networks:
       - magento-network
-
   m23:
     build: ./m23_config/
     image: mike/m23_config
@@ -34,13 +32,11 @@ services:
       - magento-network
     volumes:
 #       - /Path/To/Your/magento/magento2-dev-dk/instances:/var/www/html/shared
-#       - D:\Git\_bfg\magento-trial\instances:/var/www/html/shared
+#       - /Users/molochko/Sites/magento/magento2-dev-dk/instances:/var/www/html/shared
        - src-volume-dk:/var/www/html/shared
     tty: true
     container_name: m23
 volumes:
   src-volume-dk:
-  magento-mysql-data:
 networks:
   magento-network:
-    driver: bridge
